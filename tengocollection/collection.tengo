@@ -1,0 +1,86 @@
+
+
+//records_column 获取二维数组一列数据
+records_column:= func (records,column_key,index_key){
+	output:={}
+	for i,record in records{
+		key:=""
+		if index_key{
+			key=record[index_key]
+		}else{
+			key = i
+		}
+		value:=record[column_key]
+	    output[key]=value
+	}
+	return output
+}
+//records_index 二维数组转map
+records_index:= func (records,index_key){
+	output:={}
+	for i,record in records{
+		key:=record[index_key]
+	    output[key]=record
+	}
+	return output
+}
+//records_group 分组
+records_group:=func(records,group_key){
+	output:={}
+	for i,record in records{
+		key:=record[group_key]
+		if !output[key]{
+			output[key]=[]
+		}
+	    output[key]= output[key]+[record]
+	}
+	return output
+}
+
+//records_map 没一列执行函数
+records_map:=func(records,fn){
+	for i,record in records{
+		records[i]= fn(record,i)
+	}
+	return records
+}
+
+records_keyConvert:=func(records,map){
+	output:=[]
+	for record in records{
+		newRecord:={}
+		for k,v in record{
+			newK:=map[k]
+			if newK{
+				newRecord[newK]=v
+			}
+		}
+		output = append(output,newRecord)
+	}
+	return output
+}
+
+//records_orderBy 在原数组上排序
+records_orderBy:=func(records,fn){
+	l:=len(records)
+	for i:=0;i<l-1;i++{
+		for j:=i+1;j<l;j++{
+			ok:=fn(records[i],records[j])
+			if !ok{
+				tmp:=records[i]
+				records[i]=records[j]
+				records[j]=tmp
+			}
+		}
+	}
+	return records
+}
+
+export {
+	Column:records_column,
+	Index:records_index,
+	Group:records_group,
+	Map:records_map,
+	KeyConvert:records_keyConvert,
+	OrderBy:records_orderBy
+}
