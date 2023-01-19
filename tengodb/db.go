@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/suifengpiao14/tengolib"
-	tengolibloger "github.com/suifengpiao14/tengolib"
 	"github.com/suifengpiao14/tengolib/tengotemplate"
 )
 
@@ -61,7 +60,7 @@ func ExecOrQueryContext(ctx context.Context, exetor ExectorInterface, sqls strin
 		sqlLogInfo.Err = err
 		duration := float64(sqlLogInfo.EndAt.Sub(sqlLogInfo.BeginAt).Nanoseconds()) / 1e6
 		sqlLogInfo.Duration = fmt.Sprintf("%.3fms", duration)
-		tengolibloger.SendLogInfo(sqlLogInfo)
+		tengolib.SendLogInfo(sqlLogInfo)
 	}()
 	sqls = tengolib.StandardizeSpaces(tengolib.TrimSpaces(sqls)) // 格式化sql语句
 	sqlLogInfo.SQL = sqls
