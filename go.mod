@@ -1,4 +1,4 @@
-module github.com/suifengpiao14/tengoextend
+module github.com/suifengpiao14/tengolib
 
 go 1.18
 

@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/suifengpiao14/tengoextend"
-	tengoextendloger "github.com/suifengpiao14/tengoextend"
-	"github.com/suifengpiao14/tengoextend/tengotemplate"
+	"github.com/suifengpiao14/tengolib"
+	tengolibloger "github.com/suifengpiao14/tengolib"
+	"github.com/suifengpiao14/tengolib/tengotemplate"
 )
 
 type DBConfig struct {
@@ -60,9 +60,9 @@ func ExecOrQueryContext(ctx context.Context, exetor ExectorInterface, sqls strin
 		sqlLogInfo.Err = err
 		duration := float64(sqlLogInfo.EndAt.Sub(sqlLogInfo.BeginAt).Nanoseconds()) / 1e6
 		sqlLogInfo.Duration = fmt.Sprintf("%.3fms", duration)
-		tengoextendloger.SendLogInfo(sqlLogInfo)
+		tengolibloger.SendLogInfo(sqlLogInfo)
 	}()
-	sqls = tengoextend.StandardizeSpaces(tengoextend.TrimSpaces(sqls)) // 格式化sql语句
+	sqls = tengolib.StandardizeSpaces(tengolib.TrimSpaces(sqls)) // 格式化sql语句
 	sqlLogInfo.SQL = sqls
 	sqlType := SQLType(sqls)
 	if sqlType != SQL_TYPE_SELECT {

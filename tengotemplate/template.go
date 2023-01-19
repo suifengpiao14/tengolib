@@ -13,8 +13,8 @@ import (
 	"github.com/d5/tengo/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
-	"github.com/suifengpiao14/tengoextend"
-	"github.com/suifengpiao14/tengoextend/tengocontext"
+	"github.com/suifengpiao14/tengolib"
+	"github.com/suifengpiao14/tengolib/tengocontext"
 	gormLogger "gorm.io/gorm/logger"
 )
 
@@ -61,7 +61,7 @@ func (to *TemplateOut) ToSQL(args ...tengo.Object) (sqlObj tengo.Object, err err
 	sqlLogInfo := LogInfoTemplateSQL{}
 	defer func() {
 		sqlLogInfo.Err = err
-		tengoextend.SendLogInfo(sqlLogInfo)
+		tengolib.SendLogInfo(sqlLogInfo)
 	}()
 	if len(args) != 0 {
 		return nil, tengo.ErrWrongNumArguments
@@ -173,7 +173,7 @@ func (t *TengoTemplate) Exec(tplName string, volume VolumeInterface) (out string
 		return "", nil, err
 	}
 	out = strings.ReplaceAll(b.String(), WINDOW_EOF, EOF)
-	out = tengoextend.TrimSpaces(out)
+	out = tengolib.TrimSpaces(out)
 	return out, volume, nil
 }
 

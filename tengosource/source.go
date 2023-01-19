@@ -5,7 +5,7 @@ import (
 
 	"github.com/d5/tengo/v2"
 	"github.com/pkg/errors"
-	"github.com/suifengpiao14/tengoextend/tengodb"
+	"github.com/suifengpiao14/tengolib/tengodb"
 )
 
 const (

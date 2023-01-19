@@ -5,7 +5,7 @@ import (
 
 	"github.com/d5/tengo/v2"
 	"github.com/pkg/errors"
-	"github.com/suifengpiao14/tengoextend/tengocontext"
+	"github.com/suifengpiao14/tengolib/tengocontext"
 )
 
 type TengoMemoryDB struct {

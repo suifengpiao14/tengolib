@@ -7,8 +7,8 @@ import (
 	"github.com/d5/tengo/v2"
 	"github.com/pkg/errors"
 	_ "github.com/suifengpiao14/gjsonmodifier"
-	"github.com/suifengpiao14/tengoextend"
-	"github.com/suifengpiao14/tengoextend/tengocontext"
+	"github.com/suifengpiao14/tengolib"
+	"github.com/suifengpiao14/tengolib/tengocontext"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 )
@@ -160,8 +160,8 @@ func Get(args ...tengo.Object) (result string, err error) {
 			Found:    args[1].TypeName(),
 		}
 	}
-	jsonStr = tengoextend.TrimSpaces(jsonStr)
-	path = tengoextend.TrimSpaces(path)
+	jsonStr = tengolib.TrimSpaces(jsonStr)
+	path = tengolib.TrimSpaces(path)
 	gResult := gjson.Get(jsonStr, path)
 	result = gResult.String()
 	return result, nil

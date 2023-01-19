@@ -1,4 +1,4 @@
-package tengoextend
+package tengolib
 
 import (
 	"encoding/json"

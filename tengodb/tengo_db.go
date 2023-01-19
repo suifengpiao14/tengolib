@@ -9,7 +9,7 @@ import (
 	"github.com/d5/tengo/v2"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/pkg/errors"
-	"github.com/suifengpiao14/tengoextend/tengocontext"
+	"github.com/suifengpiao14/tengolib/tengocontext"
 )
 
 // TengoDBInterface 为了实现 memory_db 替换,改成接口，对 事务没有实现替换，后续可以扩展memory_db 时，加上事务方法
