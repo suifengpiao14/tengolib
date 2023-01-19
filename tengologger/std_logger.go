@@ -1,4 +1,4 @@
-package tengolib
+package tengologger
 
 //LogInfoChainBuffer 日志缓冲区,减少并发日志丢失情况
 var LogInfoChainBuffer int = 50
@@ -23,5 +23,4 @@ func SendLogInfo(info LogInforInterface) {
 	default:
 		return
 	}
-
 }

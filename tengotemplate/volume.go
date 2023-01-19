@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/pkg/errors"
-	"github.com/suifengpiao14/tengolib"
+	"github.com/suifengpiao14/tengolib/util"
 )
 
 type VolumeInterface interface {
@@ -71,7 +71,7 @@ func convertType(dst interface{}, src interface{}) bool {
 		rv.Set(realValue)
 		return true
 	}
-	srcStr := tengolib.ToString(src)
+	srcStr := util.ToString(src)
 	switch rvT.Kind() {
 	case reflect.Int:
 		srcInt, err := strconv.Atoi(srcStr)
