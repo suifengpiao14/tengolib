@@ -1,0 +1,16 @@
+
+//transaction 使用闭包封装事务处理，因为有回调函数为tengo，所以只能在tengo 中封装
+transaction:= func (ctx,db,fn){
+    tx:=db.beginTx(ctx)
+    err=fn()
+    if err ==nil{
+        tx.commit()
+    }else{
+        tx.rollback()
+    }
+	return  err
+}
+
+export {
+	Transaction:transaction
+}

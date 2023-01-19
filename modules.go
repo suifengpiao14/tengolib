@@ -4,6 +4,7 @@ import (
 	"github.com/d5/tengo/v2"
 	"github.com/suifengpiao14/tengolib/tengocollection"
 	"github.com/suifengpiao14/tengolib/tengocontext"
+	"github.com/suifengpiao14/tengolib/tengodb"
 	"github.com/suifengpiao14/tengolib/tengogsjson"
 )
 
@@ -14,6 +15,7 @@ var BuiltinModules = map[string]map[string]tengo.Object{
 
 var SourceModules = map[string]string{
 	"collection": tengocollection.Tengocollection,
+	"db":         tengodb.TengoDBSource,
 }
 
 // AllModuleNames returns a list of all default module names.

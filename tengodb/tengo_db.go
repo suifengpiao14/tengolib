@@ -124,7 +124,7 @@ func (db *TengoDB) ExecOrQueryContext(ctx context.Context, sql string) (out stri
 }
 
 func (tengoDB *TengoDB) BeginTx(args ...tengo.Object) (ret tengo.Object, err error) {
-	if len(args) != 2 {
+	if len(args) != 1 {
 		return nil, tengo.ErrWrongNumArguments
 	}
 	ctxObjPossible := args[0]
@@ -137,17 +137,7 @@ func (tengoDB *TengoDB) BeginTx(args ...tengo.Object) (ret tengo.Object, err err
 		}
 	}
 	ctx := ctxObj.Context
-
-	dbObjPossible := args[1]
-	db, ok := dbObjPossible.(*TengoDB)
-	if !ok {
-		return nil, tengo.ErrInvalidArgumentType{
-			Name:     "db",
-			Expected: "db",
-			Found:    dbObjPossible.TypeName(),
-		}
-	}
-	tx, err := newTengoTx(ctx, db.sqlDB)
+	tx, err := newTengoTx(ctx, tengoDB.sqlDB)
 	return tx, err
 }
 
