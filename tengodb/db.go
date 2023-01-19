@@ -49,6 +49,7 @@ const (
 	LOG_LEVEL_ERROR = "error"
 )
 
+type any = interface{}
 type ExectorInterface interface {
 	ExecContext(ctx context.Context, query string, args ...any) (result sql.Result, err error)
 	QueryContext(ctx context.Context, query string, args ...any) (rows *sql.Rows, err error)
