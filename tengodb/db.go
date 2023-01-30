@@ -44,9 +44,6 @@ var DriverName = "mysql"
 const (
 	SQL_TYPE_SELECT = "SELECT"
 	SQL_TYPE_OTHER  = "OTHER"
-	LOG_LEVEL_DEBUG = "debug"
-	LOG_LEVEL_INFO  = "info"
-	LOG_LEVEL_ERROR = "error"
 )
 
 type any = interface{}
