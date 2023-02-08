@@ -16,7 +16,7 @@ var logInfoChain = make(chan LogInforInterface, LogInfoChainBuffer)
 var setLoggerWrite sync.Once
 
 // SetLoggerWriter 设置日志输出逻辑
-func SetLoggerWriter(fn func(logInfo interface{}, typeName string, err error)) {
+func SetLoggerWriter(fn func(logInfo LogInforInterface, typeName string, err error)) {
 	if fn == nil {
 		return
 	}
