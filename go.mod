@@ -11,6 +11,7 @@ require (
 	github.com/rs/xid v1.4.0
 	github.com/stretchr/testify v1.8.1
 	github.com/suifengpiao14/gjsonmodifier v0.0.2
+	github.com/suifengpiao14/logchan v0.0.2
 	github.com/tidwall/gjson v1.14.4
 	github.com/tidwall/sjson v1.2.5
 	gorm.io/gorm v1.24.3

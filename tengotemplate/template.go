@@ -13,8 +13,8 @@ import (
 	"github.com/d5/tengo/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+	"github.com/suifengpiao14/logchan"
 	"github.com/suifengpiao14/tengolib/tengocontext"
-	"github.com/suifengpiao14/tengolib/tengologger"
 	"github.com/suifengpiao14/tengolib/util"
 	gormLogger "gorm.io/gorm/logger"
 )
@@ -62,7 +62,7 @@ func (to *TemplateOut) ToSQL(args ...tengo.Object) (sqlObj tengo.Object, err err
 	sqlLogInfo := LogInfoTemplateSQL{}
 	defer func() {
 		sqlLogInfo.Err = err
-		tengologger.SendLogInfo(sqlLogInfo)
+		logchan.SendLogInfo(sqlLogInfo)
 	}()
 	if len(args) != 0 {
 		return nil, tengo.ErrWrongNumArguments
