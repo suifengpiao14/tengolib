@@ -52,8 +52,8 @@ github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKs
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/suifengpiao14/gjsonmodifier v0.0.2 h1:dejY1nozlBij5qiy7D6rqgIjekDqnEUkDtqq5GwVhn8=
 github.com/suifengpiao14/gjsonmodifier v0.0.2/go.mod h1:EcD9avEmVxW87y57plQFTjZo+yyU1IWGplYKLcc4qas=
-github.com/suifengpiao14/logchan v0.0.2 h1:COu4dyhdCWmA0U9Jb5VSFU6TWXImUpt7IiVvZRSeh4c=
-github.com/suifengpiao14/logchan v0.0.2/go.mod h1:YEq/4ZeZclAE3EC4sBomzelcnUpheasnf+sBOquEyZk=
+github.com/suifengpiao14/logchan/v2 v2.0.12 h1:bfQY/DMj3EXzMS42DOZbdxKgz+UuoCvThMtnrRciSI8=
+github.com/suifengpiao14/logchan/v2 v2.0.12/go.mod h1:c2DmWbatHcQhLZu1ZiKfMa5B7UFa9APSDqSkTiPBO/4=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.14.4 h1:uo0p8EbA09J7RQaflQ1aBRffTR7xedD2bcIVSYxLnkM=
 github.com/tidwall/gjson v1.14.4/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=

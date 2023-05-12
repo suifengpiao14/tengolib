@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/suifengpiao14/logchan"
+	"github.com/suifengpiao14/logchan/v2"
 	"github.com/suifengpiao14/tengolib/tengotemplate"
 	"github.com/suifengpiao14/tengolib/util"
 )
@@ -17,6 +17,13 @@ import (
 type DBConfig struct {
 	DSN string `json:"dsn"`
 }
+
+type LogName string
+
+func (l LogName) String() string {
+	return string(l)
+}
+
 type LogInfoEXECSQL struct {
 	Context      context.Context
 	SQL          string    `json:"sql"`
@@ -28,7 +35,7 @@ type LogInfoEXECSQL struct {
 	AffectedRows int64     `json:"affectedRows"`
 }
 
-func (l LogInfoEXECSQL) GetName() string {
+func (l LogInfoEXECSQL) GetName() logchan.LogName {
 	return LOG_INFO_EXEC_SQL
 }
 func (l LogInfoEXECSQL) Error() error {
@@ -36,7 +43,7 @@ func (l LogInfoEXECSQL) Error() error {
 }
 
 const (
-	LOG_INFO_EXEC_SQL = "LogInfoEXECSQL"
+	LOG_INFO_EXEC_SQL LogName = "LogInfoEXECSQL"
 )
 
 var DriverName = "mysql"

@@ -13,14 +13,20 @@ import (
 	"github.com/d5/tengo/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
-	"github.com/suifengpiao14/logchan"
+	"github.com/suifengpiao14/logchan/v2"
 	"github.com/suifengpiao14/tengolib/tengocontext"
 	"github.com/suifengpiao14/tengolib/util"
 	gormLogger "gorm.io/gorm/logger"
 )
 
+type LogName string
+
+func (l LogName) String() string {
+	return string(l)
+}
+
 const (
-	LOG_INFO_SQL_TEMPLATE = "LogInfoTemplateSQL"
+	LOG_INFO_SQL_TEMPLATE LogName = "LogInfoTemplateSQL"
 )
 
 type LogInfoTemplateSQL struct {
@@ -32,7 +38,7 @@ type LogInfoTemplateSQL struct {
 	Err     error       `json:"error"`
 }
 
-func (l LogInfoTemplateSQL) GetName() string {
+func (l LogInfoTemplateSQL) GetName() logchan.LogName {
 	return LOG_INFO_SQL_TEMPLATE
 }
 func (l LogInfoTemplateSQL) Error() error {
