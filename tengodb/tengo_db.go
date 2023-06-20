@@ -34,7 +34,7 @@ func (tengoDB *TengoDB) GetDB() (db *sql.DB) {
 	return tengoDB.sqlDB
 }
 
-var dbOnceMap = make(map[string]sync.Once)
+var dbOnceMap = make(map[string]*sync.Once)
 var tengoDBMap = make(map[string]*TengoDB)
 
 func NewTengoDB(config string) (tengoDB *TengoDB, err error) {
@@ -49,7 +49,7 @@ func NewTengoDB(config string) (tengoDB *TengoDB, err error) {
 	}
 	dbOnce, ok := dbOnceMap[config]
 	if !ok {
-		dbOnceMap[config] = sync.Once{}
+		dbOnceMap[config] = &sync.Once{}
 		dbOnce = dbOnceMap[config]
 	}
 	cfg := &DBConfig{}

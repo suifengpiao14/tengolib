@@ -1,7 +1,6 @@
 package tengogsjson
 
 import (
-	"errors"
 	"fmt"
 	"testing"
 
@@ -102,40 +101,3 @@ func TestGetSetArr(t *testing.T) {
 const (
 	VARIABLE_STORAGE = "storage"
 )
-
-func TestSetError(t *testing.T) {
-	s := tengo.NewScript([]byte(`
-	err:=error("hello,err")
-	storage.SetError(err)
-	`))
-	s.EnableFileImport(true)
-	s.SetImports(stdlib.GetModuleMap(stdlib.AllModuleNames()...))
-	gjsonMemory := NewStorage()
-	err := s.Add(VARIABLE_STORAGE, gjsonMemory)
-	require.NoError(t, err)
-	c, err := s.Compile()
-	require.NoError(t, err)
-	err = c.Run()
-	require.NoError(t, err)
-	fmt.Println(gjsonMemory.Err)
-}
-
-func TestGetError(t *testing.T) {
-	s := tengo.NewScript([]byte(`
-	fmt:=import("fmt")
-	err:=storage.GetError()
-	if is_error(err){
-		fmt.println(err)
-	}
-	`))
-	s.EnableFileImport(true)
-	s.SetImports(stdlib.GetModuleMap(stdlib.AllModuleNames()...))
-	gjsonMemory := NewStorage()
-	gjsonMemory.Err = errors.New("hello,err")
-	err := s.Add(VARIABLE_STORAGE, gjsonMemory)
-	require.NoError(t, err)
-	c, err := s.Compile()
-	require.NoError(t, err)
-	err = c.Run()
-	require.NoError(t, err)
-}

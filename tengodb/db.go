@@ -105,7 +105,7 @@ func ExecOrQueryContext(ctx context.Context, exetor ExectorInterface, sqls strin
 			rowsAffected++
 			var record = make(map[string]interface{})
 			var recordStr = make(map[string]string)
-			err := MapScan(*rows, record)
+			err := MapScan(rows, record)
 			if err != nil {
 				return "", err
 			}
@@ -155,7 +155,7 @@ func ExecOrQueryContext(ctx context.Context, exetor ExectorInterface, sqls strin
 }
 
 // MapScan copy sqlx
-func MapScan(r sql.Rows, dest map[string]interface{}) error {
+func MapScan(r *sql.Rows, dest map[string]interface{}) error {
 	// ignore r.started, since we needn't use reflect for anything.
 	columns, err := r.Columns()
 	if err != nil {

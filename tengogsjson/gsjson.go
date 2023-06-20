@@ -16,7 +16,6 @@ import (
 type Storage struct {
 	tengo.ImmutableMap
 	DiskSpace string
-	Err       error
 	Memory    tengo.Object //共享内存空间
 	Ctx       *tengocontext.TengoContext
 }
@@ -27,32 +26,6 @@ func NewStorage() (m *Storage) {
 		Ctx:    &tengocontext.TengoContext{},
 	}
 	m.Value = map[string]tengo.Object{
-		"GetError": &tengo.UserFunction{
-			Value: func(args ...tengo.Object) (ret tengo.Object, err error) {
-				ret = &tengo.Error{
-					Value: &tengo.String{Value: m.Err.Error()},
-				}
-				return ret, nil
-			},
-		},
-		"SetError": &tengo.UserFunction{
-			Value: func(args ...tengo.Object) (ret tengo.Object, err error) {
-				if len(args) != 1 {
-					return nil, tengo.ErrWrongNumArguments
-				}
-
-				tengoErr, ok := args[0].(*tengo.Error)
-				if !ok {
-					return nil, tengo.ErrInvalidArgumentType{
-						Name:     "gjson.SetError.arg1",
-						Expected: "error",
-						Found:    args[0].TypeName(),
-					}
-				}
-				m.Err = errors.New(tengoErr.String())
-				return nil, nil
-			},
-		},
 		"Get": &tengo.UserFunction{
 			Value: func(args ...tengo.Object) (ret tengo.Object, err error) {
 				jsonstr := &tengo.String{Value: m.DiskSpace}
