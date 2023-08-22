@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
-	"sync"
 
 	"github.com/d5/tengo/v2"
 	_ "github.com/go-sql-driver/mysql"
@@ -34,7 +33,6 @@ func (tengoDB *TengoDB) GetDB() (db *sql.DB) {
 	return tengoDB.sqlDB
 }
 
-var dbOnceMap = make(map[string]*sync.Once)
 var tengoDBMap = make(map[string]*TengoDB)
 
 func NewTengoDB(config string) (tengoDB *TengoDB, err error) {
@@ -47,27 +45,26 @@ func NewTengoDB(config string) (tengoDB *TengoDB, err error) {
 			Value: make(map[string]tengo.Object),
 		},
 	}
-	dbOnce, ok := dbOnceMap[config]
-	if !ok {
-		dbOnceMap[config] = &sync.Once{}
-		dbOnce = dbOnceMap[config]
-	}
 	cfg := &DBConfig{}
 	err = json.Unmarshal([]byte(config), cfg)
 	if err != nil {
 		return nil, err
 	}
 	var db *sql.DB
-	dbOnce.Do(func() {
-		db, err = sql.Open(DriverName, cfg.DSN)
-		if err != nil {
-			return // 此处返回闭包,带出error
-		}
-		tengoDB.sqlDB = db
-	})
+
+	db, err = sql.Open(DriverName, cfg.DSN)
+	if err != nil {
+		return // 此处返回闭包,带出error
+	}
+	tengoDB.sqlDB = db
+
 	if err != nil {
 		err = errors.WithMessagef(err, "sql.Open:%s", cfg.DSN)
 		return nil, err
+	}
+	if tengoDB.sqlDB == nil {
+		err = errors.New("tengoDB.sqlDB is nil")
+		panic(err)
 	}
 	//注入tengo 脚本方法
 	methods := map[string]tengo.CallableFunc{
@@ -82,6 +79,7 @@ func NewTengoDB(config string) (tengoDB *TengoDB, err error) {
 		}
 
 	}
+	tengoDBMap[config] = tengoDB
 	return tengoDB, nil
 }
 
