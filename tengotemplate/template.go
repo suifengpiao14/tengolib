@@ -38,11 +38,13 @@ type LogInfoTemplateSQL struct {
 	Err     error       `json:"error"`
 }
 
-func (l LogInfoTemplateSQL) GetName() logchan.LogName {
+func (l *LogInfoTemplateSQL) GetName() logchan.LogName {
 	return LOG_INFO_SQL_TEMPLATE
 }
-func (l LogInfoTemplateSQL) Error() error {
+func (l *LogInfoTemplateSQL) Error() error {
 	return l.Err
+}
+func (l *LogInfoTemplateSQL) BeforSend() {
 }
 
 const (
@@ -65,7 +67,7 @@ func (to *TemplateOut) String() string {
 }
 
 func (to *TemplateOut) ToSQL(args ...tengo.Object) (sqlObj tengo.Object, err error) {
-	sqlLogInfo := LogInfoTemplateSQL{}
+	sqlLogInfo := &LogInfoTemplateSQL{}
 	defer func() {
 		sqlLogInfo.Err = err
 		logchan.SendLogInfo(sqlLogInfo)
@@ -91,7 +93,7 @@ func (to *TemplateOut) ToSQL(args ...tengo.Object) (sqlObj tengo.Object, err err
 	return sqlObj, nil
 }
 
-//TemplateFuncMap 外部需要增加模板自定义函数时,在初始化模板前,设置该变量即可
+// TemplateFuncMap 外部需要增加模板自定义函数时,在初始化模板前,设置该变量即可
 var TemplateFuncMap = make([]template.FuncMap, 0)
 
 type TengoTemplate struct {
@@ -195,7 +197,7 @@ func GetTemplateNames(t *template.Template) []string {
 	return out
 }
 
-//ToSQL 将字符串、数据整合为sql
+// ToSQL 将字符串、数据整合为sql
 func ToSQL(named string, data map[string]interface{}) (sql string, err error) {
 	statment, arguments, err := sqlx.Named(named, data)
 	if err != nil {

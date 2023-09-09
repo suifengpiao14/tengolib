@@ -35,11 +35,14 @@ type LogInfoEXECSQL struct {
 	AffectedRows int64     `json:"affectedRows"`
 }
 
-func (l LogInfoEXECSQL) GetName() logchan.LogName {
+func (l *LogInfoEXECSQL) GetName() logchan.LogName {
 	return LOG_INFO_EXEC_SQL
 }
-func (l LogInfoEXECSQL) Error() error {
+func (l *LogInfoEXECSQL) Error() error {
 	return l.Err
+}
+func (l *LogInfoEXECSQL) BeforSend() {
+
 }
 
 const (
@@ -60,7 +63,7 @@ type ExectorInterface interface {
 }
 
 func ExecOrQueryContext(ctx context.Context, exetor ExectorInterface, sqls string) (out string, err error) {
-	sqlLogInfo := LogInfoEXECSQL{}
+	sqlLogInfo := &LogInfoEXECSQL{}
 	defer func() {
 		sqlLogInfo.Err = err
 		duration := float64(sqlLogInfo.EndAt.Sub(sqlLogInfo.BeginAt).Nanoseconds()) / 1e6
