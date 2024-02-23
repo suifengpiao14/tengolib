@@ -33,6 +33,7 @@ type LogInfoEXECSQL struct {
 	EndAt        time.Time `json:"endAt"`
 	Duration     string    `json:"time"`
 	AffectedRows int64     `json:"affectedRows"`
+	logchan.EmptyLogInfo
 }
 
 func (l *LogInfoEXECSQL) GetName() logchan.LogName {
@@ -40,9 +41,6 @@ func (l *LogInfoEXECSQL) GetName() logchan.LogName {
 }
 func (l *LogInfoEXECSQL) Error() error {
 	return l.Err
-}
-func (l *LogInfoEXECSQL) BeforSend() {
-
 }
 
 const (

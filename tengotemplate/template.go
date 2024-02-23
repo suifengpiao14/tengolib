@@ -36,6 +36,7 @@ type LogInfoTemplateSQL struct {
 	Data    interface{} `json:"data"`
 	Result  string      `json:"result"`
 	Err     error       `json:"error"`
+	logchan.EmptyLogInfo
 }
 
 func (l *LogInfoTemplateSQL) GetName() logchan.LogName {
@@ -44,7 +45,7 @@ func (l *LogInfoTemplateSQL) GetName() logchan.LogName {
 func (l *LogInfoTemplateSQL) Error() error {
 	return l.Err
 }
-func (l *LogInfoTemplateSQL) BeforSend() {
+func (l *LogInfoTemplateSQL) BeforeSend() {
 }
 
 const (
